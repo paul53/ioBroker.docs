@@ -30,21 +30,15 @@ Objekte werden in einer Datenbank oder in einer JSON-Datei gespeichert.
 Das ist eine so genannte Meta-Information, Konfiguration oder Beschreibung von dem Datenpunkten und Struktur. 
 
 Ein Datenpunkt-Objekt (Typ: 'state') besteht aus einem statischen Teil (.common, .native) 
-und einem dynamischen Teil (.state, .oldState), dem aktuellen Zustand. 
-
-Beide Teile werden in getrennten Datenbanken bzw. JSON-Dateien gespeichert.
+und einem dynamischen Teil (.state, .oldState), dem aktuellen Zustand. Beide Teile werden in getrennten Datenbanken bzw. JSON-Dateien gespeichert.
 
 #### Zustand oder State
-Das ist der eigentliche Zustand eines Datenpunktes. 
+Das ist der dynamische Zustand eines Datenpunktes. Der Zustand bzw. Status eines Datenpunktes beschreibt den Wert, den Zeitstempel, den Zeitpunkt der letzten Änderung und die Bestätigung durch den Sender oder Empfänger. 
 
 Folgende Typen von Zuständen/States gibt es: boolean, string, number, array, object, mixed. 
 
-Der Zustand bzw. Status eines Datenpunktes beschreibt den Wert, den Zeitstempel, den Zeitpunkt der letzten Änderung und die Bestätigung durch den Sender oder Empfänger. 
-
-Ein einfaches Beispiel für einen Wert: Eine Lampe ist aus, somit hat sie den State: false. 
-Ist die Lampe eingeschaltet hat sie den State **true**. 
-
-Statt true/false (boolean) kann der State auch 1/0 (number) oder on/off (string) sein.
+Ein einfaches Beispiel für einen Wert: Eine Lampe ist aus, somit hat sie den Wert false. 
+Ist die Lampe eingeschaltet hat sie den Wert **true**. Statt true/false (boolean) kann der Wert auch 1/0 (number) oder on/off (string) sein.
 
 ### Kanal
 
