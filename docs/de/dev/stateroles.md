@@ -2,19 +2,19 @@
 translatedFrom: en
 translatedWarning: Wenn Sie dieses Dokument bearbeiten möchten, löschen Sie bitte das Feld "translationsFrom". Andernfalls wird dieses Dokument automatisch erneut übersetzt
 editLink: https://github.com/ioBroker/ioBroker.docs/edit/master/docs/de/dev/stateroles.md
-title: Staatliche Rollen
+title: Funktionen / Rollen von Datenpunkten
 hash: syC9htxAnnv0AgMriyuXpe6GqkUOZNtl226RMjG91Io=
 ---
-# Zustandsrollen
-## Verbreitet
-* Zustand - sehr allgemeiner Zweck. Wenn Sie nicht wissen, welche Rolle der Staat hat, verwenden Sie diese.
+# Datenpunktfunktionen (role)
+## Allgemein
+* state - sehr allgemeiner Zweck. ZU verwenden, wenn nicht bekannt ist, welche Funktion der Datenpunkt hat.
 * text (common.type = string)
-* text.url (common.type = string) state val enthält eine URL zur Verwendung in einem Anker, Iframe oder img
+* text.url (common.type = string) Der Wert(val) enthält eine URL zur Verwendung in einem Anker, Iframe oder img
 * html (common.type = string)
 * json (common.type = string)
 * list (common.type = array)
 * date (common.type = string - kann mit der Zeichenfolge "new Date (ddd)" analysiert werden
-* date (common.type = number - epoch seconds * 1000
+* date (common.type = number - absolute Millisekunden
 
 ## Sensor (Boolescher Wert, schreibgeschützt)
 *common.type = boolean, common.write = false*
@@ -22,7 +22,7 @@ hash: syC9htxAnnv0AgMriyuXpe6GqkUOZNtl226RMjG91Io=
 * sensor.window - Fenster geöffnet (true) oder geschlossen (false)
 * sensor.door - Tür geöffnet (true) oder geschlossen (false)
 * sensor.alarm - ein häufiger Alarm
-* sensor.alarm.flood - wasserleckage
+* sensor.alarm.flood - Wasserleckage
 * sensor.alarm.fire - Feuersensor
 * sensor.alarm.secure - Tür geöffnet, Fenster geöffnet oder Bewegung erkannt, während der Alarm eingeschaltet ist.
 * sensor.alarm.power - Kein Strom (Spannung = 0)
@@ -32,16 +32,16 @@ hash: syC9htxAnnv0AgMriyuXpe6GqkUOZNtl226RMjG91Io=
 * sensor.rain - Regen erkannt
 * sensor.noise - Geräusch erkannt
 
-## Buttons (Boolean, nur Schreiben)
+## Tasten (Boolscher Wert, nur Schreiben)
 *common.type = boolean, common.write = true, common.read = false*
 
-* Taste
+* button
 * button.long
 * button.stop - z. rollo halt,
 * button.start
 * button.open.door
 * button.open.window
-*button.mode.*
+* button.mode
 * button.mode.auto
 * button.mode.manual
 * button.mode.silent
@@ -49,11 +49,11 @@ hash: syC9htxAnnv0AgMriyuXpe6GqkUOZNtl226RMjG91Io=
 ## Werte (Zahlen, schreibgeschützt)
 *common.type = number, common.write = false*
 
-* Wert
+* value
 * value.window (common.states = {"0": "CLOSED", "1": "TILTED", "2": "OPEN"}) Es ist wichtig (CLOSED / TILTED / OPEN) zu haben. Werte können abweichen.
 * value.temperature (common.unit = '°C' oder '°F' oder 'K')
-* Wert.Feuchtigkeit
-* Wert.Helligkeit - Leuchtdichte (Einheit: Lux,)
+* value.humidity
+* value.brightness - Beleuchtungsstärke (Einheit: Lux,)
 * value.min
 * value.max
 * value.default
@@ -67,14 +67,14 @@ hash: syC9htxAnnv0AgMriyuXpe6GqkUOZNtl226RMjG91Io=
 * value.gps.latitude - GPS-Breite
 * value.gps.elevation - GPS-Höhe
 * value.gps - Länge und Breite zusammen wie '5.56; 43.45'
-* Leistungsaufnahme (Einheit = Wh oder KWh)
+* value.power.consumption (Einheit = Wh oder KWh)
 * value.direction - (common.type = number ~~ oder string ~~, zeigt auf / ab, links / rechts, 4-Wege-Schalter, Windrichtung, ...)
 * value.curtain - Istposition des Vorhangs
 * value.blind - Istposition der Jalousie
 * value.tilt - tatsächliche Neigungsposition
 * value.lock - aktuelle Position des Schlosses
 * value.speed - Windgeschwindigkeit
-* Wert.Druck - (Einheit: mbar)
+* value.pressure - (Einheit: mbar)
 * value.distance
 * value.distance.visibility
 * value.severity - etwas Dringlichkeit (Zustände können zur Verfügung gestellt werden), höher ist wichtiger
@@ -92,27 +92,27 @@ hash: syC9htxAnnv0AgMriyuXpe6GqkUOZNtl226RMjG91Io=
 Der Unterschied von *Indikatoren* zu *Sensoren* besteht darin, dass Indikatoren als kleines Symbol angezeigt werden. Sensoren als realer Wert.
 Die Anzeige darf also nicht alleine im Kanal sein. Es muss sich um einen anderen Hauptstatus im Kanal handeln.
 
-* Indikator
+* indicator
 * indicator.working - Zeigt an, dass das Zielsystem gerade etwas ausführt, z. B. Jalousien oder das Öffnen von Sperren.
 * indicator.reachable - Wenn das Gerät online ist
 * indicator.connected - wird nur für Instanzen verwendet. Verwenden Sie indicator.reachable für Geräte
 * indicator.maintenance - zeigt Systemwarnungen / -fehler, Alarme, Servicemeldungen, Batterie leer oder ähnliches an
-* Indikator.Wartung.Lowbat
-* Indikator.Wartung.Unreichbarkeit
-* Anzeige.Wartung.Alarm
+* indicator.maintenance.lowbat
+* indicator.maintenance.unreach
+* indicator.maintenance.alarm
 * indicator.lowbat - wahr, wenn die Batterie schwach ist
 * indicator.alarm - Entspricht indicator.maintenance.alarm
 * indicator.alarm.fire - Feuer erkannt
 * indicator.alarm.flood - Flut erkannt
-* Anzeige.alarm.sicher - Tür oder Fenster ist geöffnet
+* indicator.alarm.secure - Tür oder Fenster ist geöffnet
 * indicator.alarm.health - Gesundheitsproblem
 
-## Ebenen (Zahlen, Lese- und Schreibzugriff)
-Mit **Ebenen** können Sie einen Zahlenwert steuern oder einstellen.
+## Niveau / Pegel (Zahlen, Lese- und Schreibzugriff)
+Mit **level** können Sie einen Zahlenwert steuern oder einstellen.
 
 *common.type = number, common.write = true*
 
-* Niveau
+* level
 * level.co2 - 0-100% Luftqualität
 * level.dimmer - Helligkeit ist auch gedimmt
 * level.blind - Jalousieposition einstellen
@@ -125,7 +125,7 @@ Mit **Ebenen** können Sie einen Zahlenwert steuern oder einstellen.
 * level.color.hue - Farbe in ° 0-360; 0 = rot, 120 = grün, 240 = blau, 360 = rot (zyklisch)
 * level.color.saturation
 * level.color.rgb - hexadezimale Farbe wie '#rrggbb'
-* Level.Color.Luminance
+* level.color.luminance
 * level.color.temperature - Farbtemperatur in K ° 2200 warmweiß, 6500 kaltweiß
 * level.timer
 * level.timer.sleep - Sleep-Timer. 0 - aus oder in Minuten
@@ -140,8 +140,8 @@ Schalter steuert boolesches Gerät (true = ON, false = OFF)
 
 *common.type = boolean, common.write = true*
 
-* Schalter
-* switch.lock - lock (true - open lock, false - close lock)
+* switch
+* switch.lock - Verriegelung (true - open lock, false - close lock)
 * switch.lock.door - Türschloss
 * switch.lock.window - Fenstersperre
 * switch.boost - Start / Stopp-Boost-Modus des Thermostats
@@ -149,7 +149,7 @@ Schalter steuert boolesches Gerät (true = ON, false = OFF)
 * switch.comfort - Komfortmodus
 * switch.enable
 * switch.power - Ein- / Ausschalten
-* Wechselmodus.*
+* switch.mode.*
 * switch.mode.auto - automatischer Modus ein / aus
 * switch.mode.manual - manueller Modus ein / aus
 * switch.mode.silent - Stummschaltung ein / aus
@@ -175,7 +175,7 @@ Sonderrollen für Mediaplayer
 * media.mode.shuffle - (common.type = number) 0 - keine, 1 - alle, 2 - eins
 * media.mode.repeat - (common.type = boolean)
 * media.state - ['abspielen', 'anhalten', 'anhalten'] oder [0 - anhalten, 1 - abspielen, 2 - anhalten] oder [wahr - abspielen / falsch - anhalten]
-* Medienkünstler
+* media.artist - Künstler
 * media.album
 * media.title
 * media.title.next
@@ -271,16 +271,16 @@ Sonderrollen für Mediaplayer
 * value.direction.max.wind - Aktuelle Windrichtung in Grad
 * value.direction.min.wind - Aktuelle Windrichtung in Grad
 * weather.direction.wind - tatsächliche oder durchschnittliche Windrichtung als Text, z. NNW
-* Datum - aktuelles Datum oder Datum der letzten gelesenen Information
+* date - aktuelles Datum oder Datum der letzten gelesenen Information
 * date.sunrise - Sonnenaufgang für heute
 * date.sunset - Sonnenuntergang für heute
-* Wochentag - Wochentag als Text
+* dayofweek - Wochentag als Text
 * location - Textbeschreibung des Standorts (z. B. Adresse)
 * weather.icon - Aktuelle URL für Statussymbol
 * weather.icon.wind - Aktuelle URL für Windsymbole
 * weather.icon.name - Name des aktuellen Statussymbols für den Moment
 * weather.state - Aktuelle Wetterbeschreibung
-* value.precipitation - (type: number, unit: mm) Niederschlag der letzten 24 Stunden (Niederschlag heute für Schnee oder Regen / осадки сегодня снега или дождя)
+* value.precipitation - (type: number, unit: mm) Niederschlag der letzten 24 Stunden (Niederschlag heute für Schnee oder Regen)
 * value.precipitation.hour - Tatsächliche Niederschlagsmenge in der letzten Stunde
 * value.precipitation.today - Tatsächliche Niederschlagsmenge für heute (bis 0:00)
 * value.radiation - Tatsächliche Sonneneinstrahlung
@@ -322,7 +322,7 @@ Sonderrollen für Mediaplayer
 * value.precipitation.forecast.1 - (type: number, unit: mm) Vorhersage des Niederschlagsniveaus für morgen
 * value.direction.wind.forecast.1
 * value.speed.wind.forecast.1
-* Wert.Druck.vorhergesehen.1
+* value.pressure.forecast.1
 
 ## Info
 * info.ip - IP des Geräts
